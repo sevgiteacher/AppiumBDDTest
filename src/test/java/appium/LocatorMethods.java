@@ -6,6 +6,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 
+
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.By;
@@ -25,7 +26,7 @@ public class LocatorMethods {
 
     private static final Properties locatorId = new Properties();
     private static final Properties locatorType = new Properties();
-//    private static final Properties apps=new Properties();
+    private static final Properties apps=new Properties();
 
     @Before
     public static void setUp(){
@@ -62,6 +63,9 @@ public class LocatorMethods {
 //        locatorType.load(inputStream2);
         InputStream inputStream2= LocatorMethods.class.getClassLoader().getResourceAsStream("locatorType.properties");
         locatorType.load(inputStream2);
+
+        InputStream inputStream3=LocatorMethods.class.getClassLoader().getResourceAsStream("apps.properties");
+        apps.load(inputStream3);
 
 
     }

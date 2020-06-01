@@ -13,9 +13,10 @@ public class MyStepdefs {
         navigateHelper();
     }
 
-    @When("user tap {string}")
-    public void userTap(String element) {
-        tapHelper(element);
+
+    @When("user click {string}")
+    public void userClick(String element) {
+        clickHelper(element);
     }
 
     @And("user types {string} to {string} area")
