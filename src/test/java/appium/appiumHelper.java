@@ -2,7 +2,6 @@ package appium;
 
 public class appiumHelper extends LocatorMethods {
 
-
     public static void navigateHelper(){
         setUp();
     }
@@ -15,6 +14,8 @@ public class appiumHelper extends LocatorMethods {
         driver.hideKeyboard();
         locateElement(element).sendKeys(content);
     }
+
+
 
 
 

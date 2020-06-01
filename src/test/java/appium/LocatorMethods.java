@@ -10,6 +10,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.Properties;
 
 public class LocatorMethods {
@@ -40,8 +42,13 @@ public class LocatorMethods {
         caps.setCapability(MobileCapabilityType.PLATFORM_VERSION,"9.0");
         caps.setCapability(MobileCapabilityType.AUTOMATION_NAME,"UiAutomator2");
         caps.setCapability(MobileCapabilityType.DEVICE_NAME,"Pixel API 28");
-        caps.setCapability("appPackage","com.google.android.dialer");
-        caps.setCapability("appActivity","com.android.dialer.main.impl.MainActivity");
+        // for phone app
+//        caps.setCapability("appPackage","com.google.android.dialer");
+//        caps.setCapability("appActivity","com.android.dialer.main.impl.MainActivity");
+        // for apiDemos
+        caps.setCapability("appPackage","io.appium.android.apis");
+        caps.setCapability("appActivity",".ApiDemos");
+
 
         try {
             URL url = new URL("http://localhost:4723/wd/hub");
@@ -79,6 +86,10 @@ public class LocatorMethods {
         return (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(path));
     }
 
+    public static List<WebElement> waitForPresences(By path){
+        return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(path));
+    }
+
     public static MobileElement locateElement(String typeOrId){
         String id = locatorId.getProperty(typeOrId);
         String type = locatorType.getProperty(typeOrId);
@@ -105,5 +116,33 @@ public class LocatorMethods {
                 throw new IllegalStateException("Unexpected value: " + type);
         }
         return element;
+    }
+
+    public static List<MobileElement> locateElementsWithoutWait(String typeOrId){
+        String id = locatorId.getProperty(typeOrId);
+        String type = locatorType.getProperty(typeOrId);
+
+        List<MobileElement> elements;
+
+        switch (type){
+            case "xpath":
+                elements = driver.findElements(By.xpath(id));
+                break;
+            case "id":
+                elements = driver.findElements(By.id(id));
+                break;
+            case "desc":
+                elements = driver.findElements(new MobileBy.ByAccessibilityId(id));
+                break;
+            case "name":
+                elements = driver.findElements(By.name(id));
+                break;
+            case "linktext":
+                elements = driver.findElements(By.linkText(id));
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
+        return elements;
     }
 }

@@ -4,12 +4,13 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
 import static appium.appiumHelper.*;
+import static appium.ScrollSwipeActionHelper.*;
 
 public class MyStepdefs {
-    @Given("user is on phone app")
-    public void userIsOnPhoneApp() {
+
+    @Given("user is on app")
+    public void userIsOnApp() {
         navigateHelper();
     }
 
@@ -26,5 +27,17 @@ public class MyStepdefs {
 
     @Then("new account is saved")
     public void newAccountIsSaved() {
+    }
+
+
+    @And("user scroll to {string}")
+    public void userScrollTo(String arg0) {
+        scrollToHelper(arg0);
+    }
+
+
+    @And("user scroll {string} to {string}")
+    public void userScrollTo(String arg0, String arg1) {
+        touchActionMoveToElementHelper(arg0, arg1);
     }
 }
